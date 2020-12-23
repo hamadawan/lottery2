@@ -53,7 +53,8 @@ function MyModal(props){
                 })
                 .then(response =>
                     {
-                        alert(response.data)
+                        alert("Password Changed Successfully!")
+                        props.isOpen(false)
                     }
                 )
                 .catch(err => 
@@ -75,7 +76,7 @@ function MyModal(props){
           <div
             style={{width:'100%', height:'530px', padding:'15px', backgroundColor:'white'}}>
             <Grid container >
-                <h5 style={{ marginLeft: '10px', fontWeight:'bold'}} onClick={()=>props.setIsOpen()}>X</h5>
+                <h5 style={{ marginLeft: '10px', fontWeight:'bold'}} onClick={()=>props.setIsOpen(false)}>X</h5>
                 <Table size="small" style={{backgroundColor:'white'}}>
                     <TableHead>
                     <TableRow style={{backgroundColor:'white', marginTop:'100px'}}>

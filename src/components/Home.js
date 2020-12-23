@@ -1,12 +1,4 @@
-// import headerB from '../images/header.png'
-// import lottery from '../images/lottery3.png'
-// import menubtnbg from '../images/menubtnbg.png'
-// import pages from '../images/pages.png'
-// import pages2 from '../images/page-2.png'
-// import dollar from '../images/dollar.png'
-// import ball from '../images/ball1.png'
-// import ball2 from '../images/ball2.png'
-// import pencil from '../images/pencil.png'
+
 import '../css/Home.css'
 
 import megaImg from '../images/mega-mill.png'

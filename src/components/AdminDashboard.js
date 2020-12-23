@@ -110,24 +110,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const getData = (props) => {
-
-  Axios.get('https://solarcalculatortec.herokuapp.com/users/',{
-        
-          headers:{
-            'Authorization': `Bearer ${props.this.state.token}`
-        }
-  
-      }).then(response => 
-          {
-            var dataget = response.data;
-            props.this.setState({data: dataget})
-
-          })
-      .catch(err => {       
-          console.log(err)
-      })
-}
 
 const logout = (props) => {
       props.state.setState({login: false, user: {}})
