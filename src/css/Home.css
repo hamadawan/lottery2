@@ -1,0 +1,231 @@
+.text-gradient{
+
+    background: -webkit-linear-gradient( #a9740d,#eee);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+}
+
+.displayFlexCol{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.displayFlexRow{
+    display: flex;
+    flex-direction: row;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    padding-left: 5%;
+}
+
+.selected-state-btn{
+    background-color: crimson;
+    font-weight: bold;
+    color: white;
+    height: 28px;
+    padding:10px;
+    padding-top: 12px;
+    border-radius: 10px;
+}
+
+.dropdown{
+    margin-top: -9px;
+}
+
+.main-cardHome{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    margin-left: 30px;
+}
+
+.cardimg{
+    background-position:center;
+    background-size:cover;            
+    background-repeat:no-repeat;
+    width: 50%;
+    height: 80px;
+}
+
+.cardbg{
+    background-position:center;
+    background-size:cover;            
+    background-repeat:no-repeat;
+    width: 100%;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    padding-top: 20px;
+    align-items: center;
+}
+
+.cardbottombg{
+    background-position:center;
+    background-size:cover;            
+    background-repeat:no-repeat;
+    width: 70%;
+    height: 50px;
+}
+
+.textMega {
+    font-weight: 900;
+    font-size: 24px;
+    color: white;
+}
+
+.textPayout {
+    font-weight: 900;
+    font-size: 24px;
+    margin-top: 5px;
+}
+
+.textAfter{
+    font-weight: 700;
+    font-size: 22px;
+    color: #a9740d;
+}
+
+.textAmount{
+    font-weight: 900;
+    font-size: 22px;
+    background-color: white;
+    color:#666666;
+    width: 70%;
+}
+
+.itemCardHome{
+    justify-content: space-between;
+    align-content: space-between;
+    width: 70%;
+    font-weight: 700;
+    font-size: 15px;
+    color: #a9740d;
+    padding-top: 5px;
+}
+
+.textNext{
+    font-weight: 700;
+    font-size: 22px;
+    color: #a9740d;
+    margin-top: 10px;
+}
+
+.textDate{
+    font-weight: 500;
+    font-size: 22px;
+    color: black;
+}
+
+.playbtn{
+    font-weight: 900;
+    font-size: 24px;
+    background-color: crimson;
+    color:white;
+    width: 60%;
+    border-radius: 10px;
+    padding: 3px;
+    margin-top: 3px;
+    z-index: 50;
+}
+
+.mainadd-card{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.cardaddbg{
+    background-position:center;
+    background-size:cover;            
+    background-repeat:no-repeat;
+    width: 100%;
+    height: 430px;
+}
+
+.cardaddbottombg{
+    background-position:center;
+    background-size:cover;            
+    background-repeat:no-repeat;
+    width: 100%;
+    height: 100px;
+}
+
+.about-lottery{
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 28px;
+    font-weight: 1000;
+    padding-left: 30px;
+    color: #666666;
+}
+
+.about-text{
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 25px;
+    padding-left: 30px;
+    padding-right: 30px;
+    text-align: justify;
+    font-weight: 400;   
+    margin-bottom: 20px;
+}
+
+@media only screen and (min-width: 1600px), only screen and (min-device-width: 1600px) {
+    
+    .cardimg{
+        background-position:center;
+        background-size:cover;            
+        background-repeat:no-repeat;
+        width: 32%;
+        height: 80px;
+    }
+    
+}
+@media only screen and (max-width: 867px), only screen and (max-device-width: 867px) {
+    
+    .selected-state-btn{
+
+        background-color: crimson;
+        font-weight: 900;
+        color: white;
+        border-radius: 10px;
+        font-size: 10px;
+        vertical-align: middle;
+        text-align: center;
+        height: 20px;
+        line-height: 20px;
+        
+    }
+    
+    .main-cardHome{
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+        margin-top: 10px;
+        margin-left: -10px;
+    }
+
+    .cardimg{
+        background-position:center;
+        background-size:cover;            
+        background-repeat:no-repeat;
+        width: 32%;
+        height: 80px;
+    }
+    
+}

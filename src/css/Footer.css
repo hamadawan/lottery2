@@ -1,0 +1,38 @@
+.displayCol{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.displayRow{
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+}
+
+.bannerbg{
+    background: radial-gradient(circle,#F5E375, #a9740d);
+    width: 100%;
+    height: 20px;
+}
+
+
+.company-address
+{
+    font-size:20px;
+    font-weight:600;
+    align-items:flex-start;
+    padding-bottom: 10px;
+}
+
+
+@media only screen and (max-width: 867px), only screen and (max-device-width: 867px) {
+    
+    .company-address
+    {
+        font-size:20px;
+        font-weight:600;
+        align-items:flex-start;
+    }
+}

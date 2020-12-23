@@ -1,0 +1,174 @@
+@media only screen and (max-width: 5650px), only screen and (max-device-width: 5650px) {
+
+    .displayCol{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-content: center;
+    }
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td, th {
+        border: 1px solid #F5E375;
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(odd) {
+        background-color: #F5E375;
+    }
+
+    .playing{
+        background-position:center;
+        background-size:cover;            
+        background-repeat:no-repeat;
+        width: 40%;
+        height: 100px; 
+    }
+
+    .how-to-play-text{
+        text-align:justify;
+        padding:10px;
+        padding-left:30px;
+    }
+
+    .screen{
+        background-position:center;
+        background-size:cover;            
+        background-repeat:no-repeat;
+        width: 100%;
+        height: 600px;
+    }
+
+    .playbtn{
+        font-weight: 700;
+        font-size: 24px;
+        background-color: crimson;
+        color:white;
+        width: 260px;
+        border-radius: 10px;
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+        vertical-align: middle;
+        z-index: 50;
+    }
+
+    .jackpotlogo{
+        background-position:center;
+        background-size:cover;            
+        background-repeat:no-repeat;
+        width: 80%;
+        height: 200px;
+        text-align: center;
+        margin: 10px;
+        z-index: 500;
+    }
+
+    .mainadd-card{
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    .cardaddbg{
+        background-position:center;
+        background-size:cover;            
+        background-repeat:no-repeat;
+        width: 100%;
+        height: 430px;
+    }
+
+    .cardaddbottombg{
+        background-position:center;
+        background-size:cover;            
+        background-repeat:no-repeat;
+        width: 100%;
+        height: 100px;
+    }
+}
+@media only screen and (min-width: 1650px), only screen and (min-device-width: 1650px) {
+    
+    .screen{
+        background-position:center;
+        background-size:cover;            
+        background-repeat:no-repeat;
+        width: 80%;
+        height: 600px;
+        /* background-color: darkgreen; */
+    }   
+
+    .jackpotlogo{
+        background-position:center;
+        background-size:cover;            
+        background-repeat:no-repeat;
+        width: 50%;
+        height: 150px;
+        text-align: center;
+        margin: 10px;
+        z-index: 50;
+    }
+ 
+}
+
+@media only screen and (max-width: 867px), only screen and (max-device-width: 867px) {
+
+
+    .playing{
+        background-position:center;
+        background-size:cover;            
+        background-repeat:no-repeat;
+        width: 70%;
+        height: 100px;
+        margin-left: 3%;   
+    }
+    
+    
+    .how-to-play-text{
+        text-align:justify;
+        padding:10px;
+        padding-right: 15px;
+    }
+
+    .jackpotlogo{
+        background-position:center;
+        background-size:cover;            
+        background-repeat:no-repeat;
+        width: 60%;
+        height: 120px;
+        text-align: center;
+        margin: 10px;
+        z-index: 50;
+    }
+
+    .screen{
+        background-position:center;
+        background-size:cover;            
+        background-repeat:no-repeat;
+        width: 70%;
+        height: 600px;
+        margin: 10px auto;
+    }
+    
+    .playbtn{
+        font-weight: 700;
+        font-size: 24px;
+        background-color: crimson;
+        color:white;
+        width: 220px;
+        border-radius: 10px;
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+        vertical-align: middle;
+        z-index: 50;
+    }   
+}

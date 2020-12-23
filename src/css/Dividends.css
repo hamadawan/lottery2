@@ -1,0 +1,134 @@
+.text-gradient{
+
+    background: -webkit-linear-gradient( #a9740d,#eee);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+}
+
+.dividend-text-container{
+    text-align:justify; 
+    padding:10px;
+    padding-top:50px; 
+    padding-left:30px;
+}
+
+.dividend-text-start{
+    font-size: 20px;
+    font-weight:500;
+}
+
+.text-dividend {
+    font-weight: 900;
+    font-size: 24px;
+    margin-top: 5px;
+}
+
+
+.cardimg2{
+    background-position:center;
+    background-size:cover;            
+    background-repeat:no-repeat;
+    width: 100%;
+    height: 65px;
+}
+
+.cardbg2{
+    background-position:center;
+    background-size:cover;            
+    background-repeat:no-repeat;
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    height: 330px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    align-items: center;
+    margin-left: 30px;
+}
+
+
+.displayFlexRow{
+    display: flex;
+    flex-direction: row;
+}
+
+.itemCard{
+    justify-content: space-between;
+    align-content: center;
+    justify-items: center;
+    align-items: center;
+    width: 100%;
+    font-weight: 700;
+    font-size: 25px;
+    color: #a9740d;
+    padding-top: 5px;
+}
+
+.amount-color{
+    color: darkgreen;
+    background-color: white;
+    padding: 0px 20px;
+    margin: 10px 0; 
+}
+
+.calculatebtn{
+    font-weight: 700;
+    font-size: 20px;
+    background-color: crimson;
+    color:white;
+    width: 150px;
+    border-radius: 10px;
+    padding: 3px;
+    height: 30px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+
+@media only screen and (max-width: 867px), only screen and (max-device-width: 867px) {
+
+    .playing{
+        background-position:center;
+        background-size:cover;            
+        background-repeat:no-repeat;
+        width: 70%;
+        height: 100px;
+        margin-left: 3%;   
+    }
+
+    .itemCard{
+        justify-content: space-between;
+        align-content: center;
+        justify-items: center;
+        align-items: center;
+        width: 100%;
+        font-weight: 700;
+        font-size: 15px;
+        color: #a9740d;
+        padding-top: 5px;
+    }
+
+    .dividend-text-container{
+        text-align:justify; 
+        padding:20px;
+        padding-top:50px; 
+        padding-left:10px;
+
+    }
+    .cardbg2{
+        background-position:center;
+        background-size:cover;            
+        background-repeat:no-repeat;
+        display: flex;
+        flex-direction: column;
+        width: 90%;
+        height: 300px;
+        display: flex;
+        flex-direction: column;
+        padding: 20px 10px;
+        align-items: center;
+        margin-left: 5px;
+    }        
+}

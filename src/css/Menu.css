@@ -1,0 +1,85 @@
+
+@media only screen and (max-width: 867px), only screen and (max-device-width: 867px) {
+    
+.menuHome{
+    background-position:center;
+    background-size:cover;            
+    background-repeat:no-repeat;
+    text-align:center;
+    width:200%;
+    height:40px;
+    vertical-align: middle;
+    line-height: 40px;    
+}
+.menu {
+    background-position:center;
+    background-size:cover;            
+    background-repeat:no-repeat;
+    text-align:center;
+    width:200%;
+    height:40px;
+    vertical-align: middle;
+    line-height: 40px;  
+    font-size: 10px;  
+    text-decoration: none;
+}
+    
+.container-menu{
+    display:flex;
+    width:100%;
+    flex-direction:row;
+    position:absolute;
+    top:150px;
+    left:0px;
+    justify-content:center;
+    align-content:center;
+    align-items:center;
+    /* padding-left:5%; */
+    margin-top:-2px;
+    font-size: small;
+    font-weight: bold;
+}
+
+}
+@media only screen and (min-width : 868px) and (max-width : 5624px) {
+
+.container-menu{
+    display:flex;
+    width:40%;
+    flex-direction:row;
+    position:absolute;
+    top:150px;
+    left:0px;
+    justify-content:center;
+    align-content:center;
+    align-items:center;
+    padding-left:2.2%;
+    margin-top:-2px;
+}
+
+.menuHome {
+
+    background-position:center;
+    background-size:cover;            
+    background-repeat:no-repeat;
+    text-align:center;
+    width:53%;
+    height:35px;
+    font-size: small;
+    font-weight: 700;
+    vertical-align: middle;
+    line-height: 35px;   
+}
+.menu {
+    background-position:center;
+    background-size:cover;            
+    background-repeat:no-repeat;
+    text-align:center;
+    width:53%;
+    height:35px;
+    font-size: small;
+    font-weight: 700;
+    vertical-align: middle;
+    line-height: 35px;    
+}
+}
