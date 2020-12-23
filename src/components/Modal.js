@@ -54,7 +54,7 @@ function MyModal(props){
                 .then(response =>
                     {
                         alert("Password Changed Successfully!")
-                        props.isOpen(false)
+                        props.setIsOpen(false)
                     }
                 )
                 .catch(err => 
