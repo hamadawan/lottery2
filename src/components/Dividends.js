@@ -18,16 +18,18 @@ function Dividends() {
     const calculate = () =>{
         if(amount > 0)
         {
-            let incomeBT = (amount * 0.0522)
-            let federalTaxPercent =  getPercent(0, 80000, 0.00, incomeBT)
-            if(federalTaxPercent == null)
-                federalTaxPercent = getPercent(80001, 496600,15.00, incomeBT)
-            if(federalTaxPercent == null)
-                federalTaxPercent = getPercentSingle(496601, 20.00, incomeBT)
+            let incomeBT = (amount * 0.0566)
+
+            // federalTax 
+            var limits = [9699,  39474,  84199,  160724,  204099, 510299, 510300].reverse()
+            var percents = [10,  12,  22,  24,  32,  35,  37].reverse()
             
-            let federalTax = (federalTaxPercent * incomeBT )/ 100;
-            let stateTax = calculateTaxState(state,incomeBT)
-            let expense = incomeBT * 0.0049
+            var incomeBTCopy = incomeBT
+            let federalTax =  calculateTax(incomeBTCopy,limits,percents);
+
+            let stateTax = calculateTaxState(state,incomeBTCopy)
+
+            let expense = incomeBT * 0.0045
 
             let netIncomeMonth = Math.round((incomeBT - federalTax - stateTax - expense) /12)
             let netIncomeWeek = Math.round(netIncomeMonth / 4)
@@ -70,8 +72,9 @@ function Dividends() {
                                 <TextField 
                                     style={{width:'215px',paddingLeft:'5px',backgroundColor:'white', marginRight:'10px'}}
                                     type="Number"
-                                    onChange={(event)=>setAmount(event.target.value)}
+                                    onChange={(event)=>{setAmount(event.target.value)}}
                                     required
+                                    
                                 />
                             </div>
                         </div>
@@ -183,159 +186,69 @@ function calculateTaxState(state, amount){
     switch(state)
     {
         case 'Alabama':
-            var percent = getPercent(0,499, 2.00, amount)
-            if( percent == null )
-                percent = getPercent(500, 2999, 4.00, amount)    
-            if( percent == null )
-                percent = getPercentSingle(3000 , 5.00, amount)    
             
-            return (percent * amount)/100;        
-        
+            var limits = [499,2999,3000].reverse()
+            var percents = [2.00,4.00,5.00].reverse()
+            return calculateTax(amount,limits,percents)
+            
         case 'Alaska':
             return 0;        
         
         case 'Arizona':
-            var percent = getPercent(0, 11046, 2.59, amount)
-            if( percent == null )
-                percent = getPercent(11047, 27613, 2.88, amount)    
-            if( percent == null )
-                percent = getPercent(27614, 55225, 3.36, amount)    
-            if( percent == null )
-                percent = getPercent(55226, 165673, 4.24, amount)    
-            if( percent == null )
-                percent = getPercentSingle(165674 , 4.54, amount)    
-            return (percent * amount)/100; 
+        
+            var limits = [11047,27613,55225,165673,165674].reverse()
+            var percents = [2.59,2.88,3.36,4.24,4.54].reverse()
+            
+            return calculateTax(amount,limits,percents)
             
         case 'Arkansas':
-            var percent = getPercent(0, 4499, 0.99, amount)
-            if( percent == null )
-                percent = getPercent(4500, 8899, 2.50, amount)    
-            if( percent == null )
-                percent = getPercent(8900, 13399, 3.50, amount)    
-            if( percent == null )
-                percent = getPercent(13400, 22199, 4.50, amount)    
-            if( percent == null )
-                percent = getPercent(22200, 37199, 5.00, amount)    
-            if( percent == null )
-                percent = getPercentSingle(37200 , 6.90, amount)    
-            return (percent * amount)/100; 
-        
+
+            var limits = [4499, 8899, 13399, 22199, 37199, 37200].reverse()
+            var percents = [0.99, 2.50, 3.50, 4.50, 5.00, 6.90 ].reverse()
+            return calculateTax(amount,limits,percents)
+            
         case 'California':
-            var percent = getPercent(0, 8543, 1.00, amount)
-            if( percent == null )
-                percent = getPercent(8544, 20254, 2.00, amount)    
-            if( percent == null )
-                percent = getPercent(20255, 31968, 4.00, amount)    
-            if( percent == null )
-                percent = getPercent(31969, 44376, 6.00, amount)    
-            if( percent == null )
-                percent = getPercent(44377, 56084, 8.00, amount)    
-            if( percent == null )
-                percent = getPercent(56085, 286491, 9.30, amount)    
-            if( percent == null )
-                percent = getPercent(286492, 343787, 10.30, amount)    
-            if( percent == null )
-                percent = getPercent(343788, 572979, 11.30, amount)    
-            if( percent == null )
-                percent = getPercent(572980, 999999, 12.30, amount)    
-            if( percent == null )
-                percent = getPercentSingle(1000000 , 13.30, amount)    
-            return (percent * amount)/100;
+        
+            var limits = [8543, 20254, 31968, 44376, 56084, 286491, 343787, 572979, 999999, 1000000].reverse()
+            var percents = [1.00, 2.00, 4.00, 6.00, 8.00, 9.30, 10.30, 11.30, 12.30, 13.30].reverse()
+            return calculateTax(amount,limits,percents)
         
         case 'Colorado':
             return (4.63 * amount)/100;
         
         case 'Connecticut':
-            var percent = getPercent(0, 9999, 3.00, amount)
-            if( percent == null )
-                percent = getPercent(10000, 49999, 5.00, amount)    
-            if( percent == null )
-                percent = getPercent(50000, 99999, 5.50, amount)    
-            if( percent == null )
-                percent = getPercent(100000, 199999, 6.00, amount)    
-            if( percent == null )
-                percent = getPercent(200000, 249999, 6.50, amount)    
-            if( percent == null )
-                percent = getPercent(250000, 499999, 6.90, amount)    
-            if( percent == null )
-                percent = getPercentSingle(500000 , 6.99, amount)    
-            return (percent * amount)/100;
-        
+            
+            var limits = [9999,49999,99999,199999,249999,499999,500000].reverse()
+            var percents = [3.00,5.00,5.50,6.00,6.50,6.90,6.99].reverse()
+            return calculateTax(amount,limits,percents)
+            
         case 'Delaware':
-            var percent = getPercent(0, 1999, 2.00, amount)
-            if( percent == null )
-                percent = getPercent(2000, 4999, 2.20, amount)    
-            if( percent == null )
-                percent = getPercent(5000, 9999, 3.90, amount)    
-            if( percent == null )
-                percent = getPercent(10000, 19999, 4.80, amount)    
-            if( percent == null )
-                percent = getPercent(20000, 24999, 5.20, amount)    
-            if( percent == null )
-                percent = getPercent(25000, 59999, 5.55, amount)    
-            if( percent == null )
-                percent = getPercentSingle(60000 , 6.60, amount)    
-            return (percent * amount)/100;
+            
+            var limits = [1999, 4999, 9999, 19999, 24999, 59999, 60000].reverse()
+            var percents = [2.00, 2.20, 3.90, 4.80, 5.20, 5.55, 6.60].reverse()
+            return calculateTax(amount,limits,percents)
             
         case 'Florida':
             return 0;
         
         case 'Georgia':
-            var percent = getPercent(0, 749, 1.00, amount)
-            if( percent == null )
-                percent = getPercent(750, 2249, 2.00, amount)    
-            if( percent == null )
-                percent = getPercent(2250, 3749, 3.00, amount)    
-            if( percent == null )
-                percent = getPercent(3750, 5249, 4.00, amount)    
-            if( percent == null )
-                percent = getPercent(5250, 6999, 5.00, amount)    
-            if( percent == null )
-                percent = getPercentSingle(7000 , 5.75, amount)    
-            return (percent * amount)/100;
-            
-        case 'Hawaii':
-            var percent = getPercent(0, 2399, 1.40, amount)
-            if( percent == null )
-                percent = getPercent(2400, 4799, 3.20, amount)    
-            if( percent == null )
-                percent = getPercent(4800, 9599, 5.50, amount)    
-            if( percent == null )
-                percent = getPercent(9600, 14399, 6.40, amount)    
-            if( percent == null )
-                percent = getPercent(14400, 19199, 6.80, amount)    
-            if( percent == null )
-                percent = getPercent(19200, 23999, 7.20, amount)    
-            if( percent == null )
-                percent = getPercent(24000, 35999, 7.60, amount)    
-            if( percent == null )
-                percent = getPercent(36000, 47999, 7.90, amount)    
-            if( percent == null )
-                percent = getPercent(48000, 149999, 8.25, amount)    
-            if( percent == null )
-                percent = getPercent(150000, 174999, 9.00, amount)    
-            if( percent == null )
-                percent = getPercent(175000, 199999, 10.00, amount)    
-            if( percent == null )
-                percent = getPercentSingle(200000 , 11.00, amount)    
-            return (percent * amount)/100;
-            
-        case 'Idaho':
-            var percent = getPercent(0, 1540, 1.13, amount)
-            if( percent == null )
-                percent = getPercent(1541, 3080, 3.13, amount)    
-            if( percent == null )
-                percent = getPercent(3081, 4621, 3.63, amount)    
-            if( percent == null )
-                percent = getPercent(4622, 6161, 4.63, amount)    
-            if( percent == null )
-                percent = getPercent(6162, 7702, 5.63, amount)    
-            if( percent == null )
-                percent = getPercent(7703, 11553, 6.63, amount)    
-            if( percent == null )
-                percent = getPercentSingle(11554 , 6.93, amount)    
-            return (percent * amount)/100;
         
+            var limits = [749, 2249, 3749, 5249,6999, 7000].reverse()
+            var percents = [1.00, 2.00, 3.00, 4.00, 5.00, 5.75].reverse()
+            return calculateTax(amount,limits,percents)
+        
+        case 'Hawaii':
+            
+            var limits = [2300, 4799, 9599, 14399, 19199, 23999, 35999, 47999, 149999, 174999, 199999, 200000].reverse()
+            var percents = [1.4, 3.2, 5.5, 6.4, 6.8, 7.2, 7.6, 7.9, 8.25, 9, 10, 11].reverse()
+            return calculateTax(amount,limits,percents)
+
+        case 'Idaho':
+
+            var limits = [1540, 3080, 4621, 6161, 7702, 11553, 11554].reverse()
+            var percents = [1.13,3.13,3.63,4.63,5.63,6.63,6.93].reverse()            
+            return calculateTax(amount,limits,percents)
+
         case 'Illinois':
             return (4.95 * amount)/100;
         
@@ -343,71 +256,37 @@ function calculateTaxState(state, amount){
             return (3.23 * amount)/100;
         
         case 'Iowa':
-            var percent = getPercent(0, 1637, 0.33, amount)
-            if( percent == null )
-                percent = getPercent(1638, 3275, 0.67, amount)    
-            if( percent == null )
-                percent = getPercent(3276, 6551, 2.25, amount)    
-            if( percent == null )
-                percent = getPercent(6552, 14741, 4.14, amount)    
-            if( percent == null )
-                percent = getPercent(14742, 24569, 5.63, amount)    
-            if( percent == null )
-                percent = getPercent(24570, 32759, 5.96, amount)    
-            if( percent == null )
-                percent = getPercent(32760, 49139, 6.25, amount)    
-            if( percent == null )
-                percent = getPercent(49140, 73709, 7.44, amount)    
-            if( percent == null )
-                percent = getPercentSingle(73710 , 8.53, amount)    
-            return (percent * amount)/100;
-        
+
+            var limits = [ 1637, 3275, 6551, 14741, 24569, 32759, 49139, 73709, 73710].reverse()
+            var percents = [0.33,0.67,2.25,4.14,5.63,5.96,6.25,7.44,8.53].reverse()            
+            return calculateTax(amount,limits,percents)
+
         case 'Kansas':
-            var percent = getPercent(0, 2499, 2.00, amount)
-            if( percent == null )
-                percent = getPercent(2500, 14999, 3.10, amount)    
-            if( percent == null )
-                percent = getPercent(15000, 29999, 5.25, amount)    
-            if( percent == null )
-                percent = getPercentSingle(30000 , 5.70, amount)    
-            return (percent * amount)/100;
+
+            var limits = [ 2499,14999, 29999, 30000].reverse()
+            var percents = [2.00, 3.10, 5.25, 5.70].reverse()            
+            return calculateTax(amount,limits,percents)
         
         case 'Kentucky':
             return (5.00 * amount)/100;
         
         case 'Louisiana':
-            var percent = getPercent(0, 12499, 2.00, amount)
-            if( percent == null )
-                percent = getPercent(12500, 49999, 4.00, amount)    
-            if( percent == null )
-                percent = getPercentSingle(50000 , 6.00, amount)    
-            return (percent * amount)/100;
-        
-        case 'Kansas':
-            var percent = getPercent(0, 21849, 5.80, amount)
-            if( percent == null )
-                percent = getPercent(21850, 51699, 6.75, amount)    
-            if( percent == null )
-                percent = getPercentSingle(51700, 7.15, amount)    
-            return (percent * amount)/100;
 
+            var limits = [ 12499, 49999, 50000].reverse()
+            var percents = [2.00, 4.00, 6.00].reverse()            
+            return calculateTax(amount,limits,percents)
+        
+        case 'Maine':
+        
+            var limits = [ 21849, 51699, 51700 ].reverse()
+            var percents = [5.80, 6.75, 7.15].reverse()            
+            return calculateTax(amount,limits,percents)
+    
         case 'Maryland':
-            var percent = getPercent(0, 999, 2.00, amount)
-            if( percent == null )
-                percent = getPercent(1000, 1999, 3.00, amount)    
-            if( percent == null )
-                percent = getPercent(2000, 2999, 4.00, amount)    
-            if( percent == null )
-                percent = getPercent(3000, 99999, 4.75, amount)    
-            if( percent == null )
-                percent = getPercent(100000, 124999, 5.00, amount)    
-            if( percent == null )
-                percent = getPercent(125000, 149999, 5.25, amount)    
-            if( percent == null )
-                percent = getPercent(150000, 249999, 5.50, amount)    
-            if( percent == null )
-                percent = getPercentSingle(250000 , 5.75, amount)    
-            return (percent * amount)/100;
+               
+            var limits = [ 999, 1999, 2999, 99999, 124999, 149999, 249999, 250000].reverse()
+            var percents = [2.00,  3.00,  4.00,  4.75,  5.00,  5.25,  5.50,  5.75].reverse()            
+            return calculateTax(amount,limits,percents)
         
         case 'Massachusetts':
             return (5.05 * amount)/100;
@@ -416,73 +295,34 @@ function calculateTaxState(state, amount){
             return (4.25 * amount)/100;
         
         case 'Minnesota':
-            var percent = getPercent(0, 26519, 5.35, amount)
-            if( percent == null )
-                percent = getPercent(26520, 87109, 7.05, amount)    
-            if( percent == null )
-                percent = getPercent(87110, 163889, 7.85, amount)    
-            if( percent == null )
-                percent = getPercentSingle(163890, 9.85, amount)    
-            return (percent * amount)/100;
+    
+            var limits = [26519, 87109, 163889, 163890].reverse()
+            var percents = [5.35, 7.05, 7.85, 9.85].reverse()            
+            return calculateTax(amount,limits,percents)
     
         case 'Mississippi':
-            var percent = getPercent(0, 999, 2.00, amount)
-            if( percent == null )
-                percent = getPercent(1000, 4999, 3.00, amount)    
-            if( percent == null )
-                percent = getPercent(5000, 9999, 4.00, amount)    
-            if( percent == null )
-                percent = getPercentSingle(10000, 5.00, amount)    
-            return (percent * amount)/100;
+    
+            var limits = [999, 4999, 9999, 10000].reverse()
+            var percents = [2.00, 3.00, 4.00, 5.00].reverse()            
+            return calculateTax(amount,limits,percents)
     
         case 'Missouri':
-            var percent = getPercent(0, 1052, 1.50, amount)
-            if( percent == null )
-                percent = getPercent(1053, 2105, 2.00, amount)    
-            if( percent == null )
-                percent = getPercent(2106, 3158, 2.50, amount)    
-            if( percent == null )
-                percent = getPercent(3159, 4211, 3.00, amount)    
-            if( percent == null )
-                percent = getPercent(4212, 5264, 3.50, amount)    
-            if( percent == null )
-                percent = getPercent(5265, 6317, 4.00, amount)    
-            if( percent == null )
-                percent = getPercent(6318, 7370, 4.50, amount)    
-            if( percent == null )
-                percent = getPercent(7371, 8423, 5.00, amount)    
-            
-            if( percent == null )
-                percent = getPercentSingle(8424, 5.40, amount)    
-            return (percent * amount)/100;
-
+    
+            var limits = [1052,  2105,  3158,  4211,  5264,  6317,  7370, 8423, 8424].reverse()
+            var percents = [1.50 ,2.00 ,2.50 ,3.00 ,3.50 ,4.00 ,4.50 ,5.00 ,5.40].reverse()            
+            return calculateTax(amount,limits,percents)
+    
         case 'Montana':
-            var percent = getPercent(0, 3099, 1.00, amount)
-            if( percent == null )
-                percent = getPercent(3100, 5399, 2.00, amount)    
-            if( percent == null )
-                percent = getPercent(5400, 8199, 3.00, amount)    
-            if( percent == null )
-                percent = getPercent(8200, 11099, 4.00, amount)    
-            if( percent == null )
-                percent = getPercent(11100, 14299, 5.00, amount)    
-            if( percent == null )
-                percent = getPercent(14300, 18399, 6.00, amount)    
-            
-            if( percent == null )
-                percent = getPercentSingle(18400, 6.90, amount)    
-            return (percent * amount)/100;
-        
+    
+            var limits = [ 3099, 5399, 8199, 11099, 14299, 18399, 18400].reverse()
+            var percents = [1.00 ,2.00 ,3.00 ,4.00 ,5.00 ,6.00 ,6.90].reverse()            
+            return calculateTax(amount,limits,percents)
+    
         case 'Nebraska':
-            var percent = getPercent(0, 3289, 2.46, amount)
-            if( percent == null )
-                percent = getPercent(3290, 19719, 3.51, amount)    
-            if( percent == null )
-                percent = getPercent(19720, 31779, 5.01, amount)    
-            
-            if( percent == null )
-                percent = getPercentSingle(31780, 6.84, amount)    
-            return (percent * amount)/100;
+
+            var limits = [ 3289, 19719, 31779, 31780].reverse()
+            var percents = [2.46, 3.51, 5.01, 6.84].reverse()            
+            return calculateTax(amount,limits,percents)
 
         case 'Nevada':
             return 0;
@@ -491,125 +331,61 @@ function calculateTaxState(state, amount){
             return (5.00 * amount)/100;
         
         case 'New Jersey':
-            var percent = getPercent(0, 19999, 1.40, amount)
-            if( percent == null )
-                percent = getPercent(20000, 34999, 1.75, amount)    
-            if( percent == null )
-                percent = getPercent(35000, 39999, 3.50, amount)    
-            if( percent == null )
-                percent = getPercent(40000, 74999, 5.53, amount)    
-            if( percent == null )
-                percent = getPercent(75000, 499999, 6.37, amount)    
-            if( percent == null )
-                percent = getPercent(500000, 4999999, 8.97, amount)    
-            
-            if( percent == null )
-                percent = getPercentSingle(5000000, 10.75, amount)    
-            return (percent * amount)/100;
-    
+        
+            var limits = [ 19999, 34999, 39999, 74999, 499999, 4999999, 5000000].reverse()
+            var percents = [1.40 ,1.75 ,3.50 ,5.53 ,6.37 ,8.97 ,10.75].reverse()            
+            return calculateTax(amount,limits,percents)
+
         case 'New Mexico':
-            var percent = getPercent(0, 5499, 1.70, amount)
-            if( percent == null )
-                percent = getPercent(5500, 10999, 3.20, amount)    
-            if( percent == null )
-                percent = getPercent(11000, 15999, 4.70, amount)    
-            
-            if( percent == null )
-                percent = getPercentSingle(16000, 4.90, amount)    
-            return (percent * amount)/100;
+
+            var limits = [5499, 10999, 15999, 16000].reverse()
+            var percents = [1.70, 3.20, 4.70, 4.90].reverse()            
+            return calculateTax(amount,limits,percents)
     
         case 'New York':
-            var percent = getPercent(0, 8499, 4.00, amount)
-            if( percent == null )
-                percent = getPercent(8500, 11699, 4.50, amount)    
-            if( percent == null )
-                percent = getPercent(11700, 13899, 5.25, amount)    
-            if( percent == null )
-                percent = getPercent(13900, 21399, 5.90, amount)    
-            if( percent == null )
-                percent = getPercent(21400, 80649, 6.21, amount)    
-            if( percent == null )
-                percent = getPercent(80650, 215399, 6.49, amount)    
-            if( percent == null )
-                percent = getPercent(215400, 1077549, 6.85, amount)    
-            
-            if( percent == null )
-                percent = getPercentSingle(1077550, 8.82, amount)    
-            return (percent * amount)/100;
+
+            var limits = [ 8499, 11699, 13899, 21399, 80649, 215399, 1077549, 1077550].reverse()
+            var percents = [4.00 ,4.50 ,5.25 ,5.90 ,6.21 ,6.49 ,6.85 ,8.82].reverse()            
+            return calculateTax(amount,limits,percents)
     
         case 'North Carolina':
             return (5.25 * amount)/100;    
     
         case 'North Dakota':
-            var percent = getPercent(0, 39449, 1.10, amount)
-            if( percent == null )
-                percent = getPercent(39450, 95499, 2.04, amount)    
-            if( percent == null )
-                percent = getPercent(95500, 199249, 2.27, amount)    
-            if( percent == null )
-                percent = getPercent(199250, 433199, 2.64, amount)    
-            
-            if( percent == null )
-                percent = getPercentSingle(433200, 2.90, amount)    
-            return (percent * amount)/100;
-    
+
+        
+            var limits = [39449 ,95499 ,199249 ,433199 ,433200].reverse()
+            var percents = [1.10 ,2.04 ,2.27 ,2.64 ,2.90].reverse()            
+            return calculateTax(amount,limits,percents)
+
         case 'Ohio':
-            var percent = getPercent(0, 10849, 1.00, amount)
-            if( percent == null )
-                percent = getPercent(10850, 16299, 1.98, amount)    
-            if( percent == null )
-                percent = getPercent(16300, 21749, 2.75, amount)    
-            if( percent == null )
-                percent = getPercent(21750, 43499, 2.97, amount)    
-            if( percent == null )
-                percent = getPercent(43450, 86899, 3.47, amount)    
-            if( percent == null )
-                percent = getPercent(86900, 108699, 3.96, amount)    
-            if( percent == null )
-                percent = getPercent(108700, 217399, 4.60, amount)    
-            
-            if( percent == null )
-                percent = getPercentSingle(217400, 5.00, amount)    
-            return (percent * amount)/100;
+
+            var limits = [ 10849 ,16299 ,21749 ,43449 ,86899 ,108699, 217399, 217400].reverse()
+            var percents = [1.00,1.98 ,2.75 ,2.97 ,3.47 ,3.96 ,4.60 ,5.00].reverse()            
+            return calculateTax(amount,limits,percents)
 
         case 'Oregon':
-            var percent = getPercent(0, 3549, 5.00, amount)
-            if( percent == null )
-                percent = getPercent(3550, 8899, 7.00, amount)    
-            if( percent == null )
-                percent = getPercent(8900, 124999, 9.00, amount)    
-            
-            if( percent == null )
-                percent = getPercentSingle(125000, 9.90, amount)    
-            return (percent * amount)/100;
-    
+        
+            var limits = [3549, 8899, 124999, 125000].reverse()
+            var percents = [5.00, 7.00, 9.00, 9.90].reverse()            
+            return calculateTax(amount,limits,percents)
+
         case 'Pennsylvania':
             return (3.07 * amount)/100;
         
         case 'Rhode Island':
-            var percent = getPercent(0, 64049, 3.75, amount)
-            if( percent == null )
-                percent = getPercent(64050, 145599, 4.75, amount)    
-            
-            if( percent == null )
-                percent = getPercentSingle(145600, 5.99, amount)    
-            return (percent * amount)/100;
+
+            var limits = [64049, 145599, 145600].reverse()
+            var percents = [3.75, 4.75, 5.99].reverse()            
+            return calculateTax(amount,limits,percents)
+
         
         case 'South Carolina':
-            var percent = getPercent(0, 2449, 1.10, amount)
-            if( percent == null )
-                percent = getPercent(2450, 4899, 3.00, amount)    
-            if( percent == null )
-                percent = getPercent(4900, 7349, 4.00, amount)    
-            if( percent == null )
-                percent = getPercent(7350, 9799, 5.00, amount)    
-            if( percent == null )
-                percent = getPercent(9800, 12249, 6.00, amount)    
-            
-            if( percent == null )
-                percent = getPercentSingle(12250, 7.00, amount)    
-            return (percent * amount)/100;
-        
+
+            var limits = [ 2449, 4899, 7349, 9799, 12249, 12250].reverse()            
+            var percents = [1.10 ,3.00 ,4.00 ,5.00 ,6.00 ,7.00].reverse()
+            return calculateTax(amount,limits,percents)
+
         case 'South Dakota':
             return 0;
          
@@ -623,93 +399,101 @@ function calculateTaxState(state, amount){
             return (4.95 * amount)/100;
 
         case 'Vermont':
-            var percent = getPercent(0, 39599, 3.35, amount)
-            if( percent == null )
-                percent = getPercent(39600, 95899, 6.60, amount)    
-            if( percent == null )
-                percent = getPercent(95900, 200099, 7.60, amount)    
-            
-            if( percent == null )
-                percent = getPercentSingle(200100, 8.75, amount)    
-            return (percent * amount)/100;
+        
+            var limits = [39599, 95899, 200099, 200100].reverse()            
+            var percents = [3.35, 6.60, 7.60, 8.75].reverse()
+            return calculateTax(amount,limits,percents)
+
         
         case 'Virginia':
-            var percent = getPercent(0, 2999, 2.00, amount)
-            if( percent == null )
-                percent = getPercent(3000, 4999, 3.00, amount)    
-            if( percent == null )
-                percent = getPercent(5000, 16999, 5.00, amount)    
-            
-            if( percent == null )
-                percent = getPercentSingle(17000, 5.75, amount)    
-            return (percent * amount)/100;
+
+            var limits = [2999, 4999, 16999, 17000].reverse()            
+            var percents = [2.00, 3.00, 5.00, 5.75].reverse()
+            return calculateTax(amount,limits,percents)
         
         case 'Washington':
             return 0;
         
         case 'West Virginia':
-            var percent = getPercent(0, 9999, 3.00, amount)
-            if( percent == null )
-                percent = getPercent(10000, 24999, 4.00, amount)    
-            if( percent == null )
-                percent = getPercent(25000, 39999, 4.50, amount)    
-            if( percent == null )
-                percent = getPercent(40000, 59999, 6.00, amount)    
             
-            if( percent == null )
-                percent = getPercentSingle(60000, 6.50, amount)    
-            return (percent * amount)/100;
+            var limits = [ 9999, 24999, 39999, 59999, 60000].reverse()            
+            var percents = [3.00, 4.00, 4.50, 6.00, 6.50].reverse()
+            return calculateTax(amount,limits,percents)
+        
         
         case 'Wisconsin':
-            var percent = getPercent(0, 11759, 4.00, amount)
-            if( percent == null )
-                percent = getPercent(11760, 23519, 5.84, amount)    
-            if( percent == null )
-                percent = getPercent(23520, 258949, 6.27, amount)    
-            
-            if( percent == null )
-                percent = getPercentSingle(258950, 7.65, amount)    
-            return (percent * amount)/100;
+        
+            var limits = [11759, 23519, 258949, 258950].reverse()            
+            var percents = [4.00, 5.84, 6.27, 7.65].reverse()
+            return calculateTax(amount,limits,percents)
             
         case 'Wyoming':
             return 0;
         
         case 'District of Columbia':
-            var percent = getPercent(0, 9999, 4.00, amount)
-            if( percent == null )
-                percent = getPercent(10000, 39999, 6.00, amount)    
-            if( percent == null )
-                percent = getPercent(40000, 59999, 6.50, amount)    
-            if( percent == null )
-                percent = getPercent(60000, 349999, 8.50, amount)    
-            if( percent == null )
-                percent = getPercent(350000, 999999, 8.75, amount)    
-            
-            if( percent == null )
-                percent = getPercentSingle(1000000, 8.95, amount)    
-            return (percent * amount)/100;
-            
+        
+            var limits = [9999, 39999, 59999, 349999, 999999,1000000].reverse()            
+            var percents = [4.00,  6.00,  6.50,  8.50,  8.75,  8.95].reverse()
+            return calculateTax(amount,limits,percents)
+
     }
 }
 
-function getPercent(min , max , percent ,amount )
-{
-    if(amount >= min && amount <= max)
-        return percent;
-    else
-        return null;
-}
+// function getPercent(min , max , percent ,amount )
+// {
+//     if(amount >= min && amount <= max)
+//         return percent;
+//     else
+//         return null;
+// }
 
-function getPercentSingle(min , percent ,amount )
-{
-    if(amount >= min)
-        return percent;
-    else
-        return null;
-}
+// function getPercentSingle(min , percent ,amount )
+// {
+//     if(amount >= min)
+//         return percent;
+//     else
+//         return null;
+// }
+
 
 function formatCurrency(x) {
     return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+}
+
+function calculateTax(amount, limits, percents){
+    
+    let tax = 0;
+    let limit = limits.pop();
+    let prelimit = 0
+    
+    while(limit!=undefined && amount > 0)
+    {
+        
+        if( amount > 0 && amount > limit && limits.length == 0  )
+        {
+            let percent = percents.pop()
+            tax = tax + ((amount)*percent)/100 
+            amount = amount - (limit-prelimit);
+            prelimit = limit
+        }
+        else if(amount > 0 && amount > limit )
+        {
+            let percent = percents.pop()
+            tax = tax + ((limit-prelimit)*percent)/100 
+            amount = amount - (limit-prelimit);  
+            prelimit = limit 
+
+        }
+        else if( amount > 0 && amount <= limit )
+        {
+            let percent = percents.pop()
+            tax = tax + ((amount)*percent)/100 
+            amount = amount - (limit-prelimit);
+            prelimit = limit
+        }
+        limit = limits.pop()
+    }
+    return tax;
 }
 
 export default Dividends;
